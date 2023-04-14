@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "47260475601",
+    "project_id": "finalnenja",
+    "storage_bucket": "finalnenja.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:47260475601:android:8c4303e52e124faea3a5f0",
+        "android_client_info": {
+          "package_name": "com.example.finalnenja"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "47260475601-9qsvt2uhn5lau4el3ggtf0kc3s35f09d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA5kkF6x11R86vHpuo6aS4_ek07xXPQHVU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "47260475601-9qsvt2uhn5lau4el3ggtf0kc3s35f09d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
