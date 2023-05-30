@@ -3,14 +3,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../controllers/home_controller.dart';
 import '../../controllers/register_process_controller/upload_photo_controller.dart';
-import '../../test/profile_test/profile_controller.dart';
 import '../../utils/theme.dart';
 import '../voucher_promo_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
    ProfileScreen({Key? key}) : super(key: key);
    HomeController controller=Get.put(HomeController());
-   ProfileController Pcontroller=Get.put(ProfileController());
+   // ProfileController Pcontroller=Get.put(ProfileController());
    final imagecontroller=Get.put(UploadPhotoController());
 
 

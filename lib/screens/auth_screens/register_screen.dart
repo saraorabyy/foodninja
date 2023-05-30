@@ -17,6 +17,9 @@ class SignUpScreen extends StatelessWidget {
   TextEditingController userController=TextEditingController();
   TextEditingController emailController=TextEditingController();
   TextEditingController passwordController=TextEditingController();
+  TextEditingController mobileController=TextEditingController();
+
+
   final formKey = GlobalKey<FormState>();
 
   @override
@@ -118,14 +121,14 @@ class SignUpScreen extends StatelessWidget {
                   var formdata=formKey.currentState!;
                   if (formdata.validate()) {
                     controller.signup(emailController.text.trim(),
-                        passwordController.text.trim(),userController.text.trim());
+                        passwordController.text.trim(),userController.text.trim(),mobileController.text.trim());
                     // print('valid');
 
 
                   }
 
                   // else{
-                  //   print("not valid");
+                  //   // print("not valid");
                   // }
                 },
                 ),

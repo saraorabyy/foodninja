@@ -11,6 +11,7 @@ import '../../screens/auth_screens/register_process_screens/sign_up_process.dart
 import '../../screens/main_screen.dart';
 import '../../shared_preference/shared_preference.dart';
 import 'package:get_storage/get_storage.dart';
+import '../../utils/my_string.dart';
 import '../../utils/theme.dart';
 
 
@@ -38,7 +39,8 @@ class AuthController extends GetxController {
     update();
   }
 
-  Future signup(dynamic email, String? password, String? name) async {
+  Future signup(
+      dynamic email, String? password, String? name, dynamic mobile) async {
     // try {
     //   final response = await http.post(
     //       Uri.parse(
@@ -63,12 +65,16 @@ class AuthController extends GetxController {
     /*** "password": ""pistol""***/
     try {
       final response = await http.post(
-          Uri.parse('https://reqres.in/api/register')
-          , //string is not asubtype of URI
+          // Uri.parse('https://reqres.in/api/register')
+          Uri.parse('$BaseUrl/auth/login')
+
+
+      , //string is not asubtype of URI
           body: {
             'email': email,
             'password': password,
             'name' : name,
+            'mobile': mobile
           }
       );
       if (response.statusCode == 200) {
@@ -131,8 +137,9 @@ class AuthController extends GetxController {
 
     try {
       final response = await http.post(
-          Uri.parse('https://reqres.in/api/login')
-          , //string is not asubtype of URI
+          // Uri.parse('https://reqres.in/api/login'),
+          Uri.parse('$BaseUrl/auth/login'),
+              // string is not asubtype of URI
           body: {
             'email': email,
             'password': password,
@@ -145,10 +152,9 @@ class AuthController extends GetxController {
         isSignedIn = true;
         authBox.write('auth', isSignedIn);
         Get.offAll(MainScreen());
-        // print('Login successfully');
+        print('Login successfully');
       }
       else {
-        // print('Failed');
         Get.back();
       }
     } catch (e) {

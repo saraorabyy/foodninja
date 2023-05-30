@@ -1,14 +1,19 @@
+import 'dart:convert';
+
 import 'package:finalnenja/services/service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-
+import 'package:http/http.dart' as http;
+import '../models/restaurant_model/RestaurantModel.dart';
 import '../services/category_services.dart';
 import '../test/product_model/model.dart';
+import '../utils/my_string.dart';
 
 
 class HomeController extends GetxController{
   var productList=<ProductModel>[].obs;
+  var restaurantList=<RestaurantModel>[].obs;
   var favoritesList=<ProductModel>[].obs;
   var stoarge = GetStorage();
   var isLoading=true.obs;
@@ -18,6 +23,8 @@ class HomeController extends GetxController{
   var isCategoryLoading=false.obs;
   var CategoryList=<ProductModel>[].obs;
   var isAllCategory = false.obs;
+  List products = [].obs ;
+  List< RestaurantModel> item = [] ;
 
 
   @override
@@ -25,6 +32,8 @@ class HomeController extends GetxController{
     super.onInit();
     getProducts();
     getCategories();
+    getRestaurant();
+    loadProductsFromrestaurant();
   }
 
   void getProducts()async{
@@ -38,6 +47,40 @@ class HomeController extends GetxController{
       isLoading(false);
 
     }
+  }
+
+   getRestaurant()async{
+      try {
+        var headers = {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer 270|0W3kSnlmK0kuxpxMi1PHbz2r0I4M6Xhyd0FmmTjt'
+        };
+        final response = await http.get(Uri.parse(
+            '$BaseUrl/restaurent'), headers: headers);
+
+
+        if (response.statusCode == 200) {
+          // print(response.body);
+          var data = jsonDecode(response.body)['data'];
+          var items = List<RestaurantModel>.from(
+              data.map((x) => RestaurantModel.fromJson(x)));
+          return items;
+        } else {
+          throw Exception('Failed to load food from API.');
+        }
+      }
+     catch (e) {
+  throw Exception('Failed to load food from API: $e');
+  }
+
+
+  }
+
+
+  loadProductsFromrestaurant() async {
+    products = await getRestaurant();
+    return products;
   }
 
   void addSearchToList(String searchName) {

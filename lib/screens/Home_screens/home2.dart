@@ -25,7 +25,6 @@ class Home2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       body: SingleChildScrollView(
         child:
 
@@ -193,7 +192,77 @@ class Home2 extends StatelessWidget {
                   })
           ),
 
+
+
           SizedBox(height: 30.h),
+          FutureBuilder(
+              future: controller.loadProductsFromrestaurant(),
+              builder: (context,AsyncSnapshot snapshot)
+              {
+                if(snapshot.hasData){
+                  // RestaurantModel data=snapshot.data;
+
+                  return GridView.builder(
+                      itemCount: controller.products.length,
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                        childAspectRatio: 0.8,
+                        mainAxisSpacing: 9.0,
+                        crossAxisSpacing: 6.0,
+                        maxCrossAxisExtent: 200,
+                      ),
+
+                      scrollDirection: Axis.vertical,
+                      itemBuilder: (context, index){
+                        return GestureDetector(
+                          //  onTap: () => Get.to(DescScreen(title:data.articles![index].title.toString())),
+                          // onTap: () => Get.to(DescScreen(newsModel:data,index:index)),
+                          child:
+                          Card(
+                            elevation: 5,
+                            shadowColor: Colors.black,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20)
+                            ),
+                            child:Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                controller.products[index].pic!=null?
+                                Image.network('${ controller.products[index].pic}'):const SizedBox(),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text('${controller.products[index].name}',style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 25),),
+
+                                      SizedBox(
+                                          width: 350,
+                                          height: 70,
+                                          child: Text('${controller.products[index].tags1}',
+                                            overflow: TextOverflow.ellipsis,maxLines: 2,
+                                          )),
+                                      // Text('${data.articles![index].description}',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 25),),
+
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),);
+                      });}
+                else{
+                  return  const Center(child: CircularProgressIndicator());
+                }
+
+              }
+
+
+          ),
+          SizedBox(height: 50.h,),
           Row(
             children: [
               SizedBox(width:35.w),
